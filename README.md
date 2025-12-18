@@ -40,7 +40,7 @@ In order to pipe, we first check if there is "|" in the list argv. If so, we rem
 
 //We have never done .git before.
 
-If two people are working on the same GitHub before adding a file:
+* If two people are working on the same GitHub before adding a file:
 
 git checkout --ours <filename>
 
@@ -54,12 +54,12 @@ git checkout --theirs <filename>
 Both people are on two branches called main (base branch for the local .git), origin is the repository on GitHub.
 
 
-To clone the directory on your PC, use:
+* To clone the directory on your PC, use:
 
 git clone https://github.com/Username_GitHub/enseash.git
 
 
-To add a file:
+* To add a file:
 
 git add <filename>          # for a specific file
 
@@ -70,7 +70,7 @@ git commit -m “Adding my files”
 git push origin main
 
 
-To retrieve the files from the directory: (Note: you must push first)
+* To retrieve the files from the directory: (Note: you must push first)
 
 git pull origin main
 
