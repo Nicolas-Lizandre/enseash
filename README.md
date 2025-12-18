@@ -36,26 +36,42 @@ To do the Q8, first we create two function, manage_redirection and exec_command.
 
 In order to pipe, we first check if there is "|" in the list argv. If so, we remplace "|" by "NULL", so when we excute the first command with argv it stops at NULL. We execute the command with the file created by the pipe.
 
-**ABOUT GitHub :**\r\n
-//We have never done .git before. \r\n
-If two people are working on the same GitHub before adding a file:\r\n
-git checkout --ours <filename>\r\n
-#Notify GitHub that merging our file is a priority.\r\n
-git checkout --theirs <filename>\r\n
-#Notify GitHub that merging the other person's file is a priority\r\n
-\r\n
-Both people are on two branches called main (base branch for the local .git), origin is the repository on GitHub.\r\n
-\r\n
-To clone the directory on your PC, use:\r\n
-git clone https://github.com/Username_GitHub/enseash.git\r\n
-\r\n
-To add a file:\r\n
-git add <filename>          # for a specific file\r\n
-git add .                   # for all modified files\r\n
-git commit -m “Adding my files”\r\n
-git push origin main \r\n
-\r\n
-To retrieve the files from the directory: (Note: you must push first)\r\n
-git pull origin main\r\n
-\r\n
+**ABOUT GitHub :**
+
+//We have never done .git before.
+
+If two people are working on the same GitHub before adding a file:
+
+git checkout --ours <filename>
+
+#Notify GitHub that merging our file is a priority.
+
+git checkout --theirs <filename>
+
+#Notify GitHub that merging the other person's file is a priority
+
+
+Both people are on two branches called main (base branch for the local .git), origin is the repository on GitHub.
+
+
+To clone the directory on your PC, use:
+
+git clone https://github.com/Username_GitHub/enseash.git
+
+
+To add a file:
+
+git add <filename>          # for a specific file
+
+git add .                   # for all modified files
+
+git commit -m “Adding my files”
+
+git push origin main
+
+
+To retrieve the files from the directory: (Note: you must push first)
+
+git pull origin main
+
 ---
