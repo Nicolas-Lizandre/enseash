@@ -37,12 +37,11 @@ int main(void) {
             write(STDOUT_FILENO, "Bye bye...\n", 11);
             break;
         }
-
+        
         argv[0] = strtok(buffer, " \t");
-
         if (argv[0] == NULL) {
-            continue; 
-        }
+            continue; } //Skips the rest of the program/Go back to while(1)
+        //Without these 3 lines above we would have a SEG_FAULT
 
         int i = 0;
         while (argv[i] != NULL && i < MAX_ARGS - 1) {
@@ -65,12 +64,14 @@ int main(void) {
                 if (strncmp(argv[j], ">", 1) == 0) {
                     char *filename = argv[j+1]; // the file name is the arg just after
                     if (filename == NULL) { // error if there is no name
-                        write(STDERR_FILENO, "Error : filename is needed for '>'\n", 30);
-                        exit(EXIT_FAILURE);
-                    }
+                        write(STDERR_FILENO, "Error : filename is needed for '>'\n", 30); //30 because lenght of the chain
+                        exit(EXIT_FAILURE);}
                     // opening the file (write only, creat if not exist, empty is exist)
-                    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-                    if (fd == -1) { perror("open"); exit(EXIT_FAILURE); }
+                    int fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644); 
+                    //When using O_CREAT we need to specify the permissions on this file
+                    //Here, 0-> to specify that it's written in octal, 6-> reading and writing rights for the owner,
+                    // 4-> reading rights for the group and 4->reading rights for others
+                    if (fd == -1) { perror("open"); exit(EXIT_FAILURE); } 
                     
                     // we use dup2 to remplace STDOUT_FILENO by fd in the execution
                     dup2(fd, STDOUT_FILENO);
@@ -112,7 +113,7 @@ int main(void) {
 
             long seconds = end.tv_sec - start.tv_sec;
             long nanoseconds = end.tv_nsec - start.tv_nsec;
-            long elapsed_ms = (seconds * 1000) + (nanoseconds / 1000000);
+            long elapsed_ms = (seconds * 1000) + (nanoseconds / 1000000); //Conversion
 
             if (WIFEXITED(status)) {
                 int exit_code = WEXITSTATUS(status);
