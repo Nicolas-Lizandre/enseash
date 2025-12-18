@@ -65,7 +65,7 @@ int main(void) {
                 if (strncmp(argv[j], ">", 1) == 0) {
                     char *filename = argv[j+1]; // the file name is the arg just after
                     if (filename == NULL) { // error if there is no name
-                        write(STDERR_FILENO, "Error : filename is needed for >\n", 30);
+                        write(STDERR_FILENO, "Error : filename is needed for '>'\n", 30);
                         exit(EXIT_FAILURE);
                     }
                     // opening the file (write only, creat if not exist, empty is exist)
@@ -77,12 +77,33 @@ int main(void) {
                     close(fd);
 
                     // we stop the list of arg here, execvp should not read ">" and the filename
-                    argv[j] = NULL; 
+                    argv[j] = NULL;
+                    j++;
                 }
 
                 // for input "<"
-                if ()
+                if (strncmp(argv[j], "<", 1) == 0) {
+                    char *filename = argv[j+1]; // the file name is the arg just after
+                    if (filename == NULL) { // error if there is no name
+                        write(STDERR_FILENO, "Error : filename is needed for '>'\n", 30);
+                        exit(EXIT_FAILURE);
+                    }
+                    // opening the file (read only)
+                    int fd = open(filename, O_RDONLY);
+                    if (fd == -1) { perror("open"); exit(EXIT_FAILURE); }
+                    
+                    // we use dup2 to remplace STDIN_FILENO by fd in the execution
+                    dup2(fd, STDIN_FILENO);
+                    close(fd);
+
+                    // we stop the list of arg here, execvp should not read ">" and the filename
+                    argv[j] = NULL;
+                    j++;
+                }
             }
+
+            execvp(argv[0], argv); // execute the command
+            exit(EXIT_FAILURE);
         } 
         else {
             wait(&status);
