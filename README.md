@@ -36,6 +36,12 @@ To do the Q8, first we create two function, manage_redirection and exec_command.
 
 In order to pipe, we first check if there is "|" in the list argv. If so, we remplace "|" by "NULL", so when we excute the first command with argv it stops at NULL. We execute the command with the file created by the pipe.
 
+**Question 9 :**
+The main issue (and reason why we use signal) is because at first glance only the main process can check the children's state (fork() can't). However, we want to interrupt our prompt if a child has finished. The tool (function) I have seen is called signal. Signal runs in // from the main process and has access to the signal sent by the main process child. The sigchld_handler will be called at each signal sent by a child terminated.
+
+The rest of the new code ensures compatibility (& is not recognized we must 'create' such command) and the management of the jobs.
+
+
 **ABOUT GitHub :**
 
 //We have never done .git before.
